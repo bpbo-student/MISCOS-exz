@@ -102,6 +102,8 @@ void get_coef() {
     std::cin >> b1;
 
     std::cout << "b(2) = ";
+    std::cin >> b2;
+    
     std::cout << "a(1) = ";
     std::cin >> a1;
 
@@ -135,6 +137,32 @@ void zeroplot() {
     solveQuadraticEquation(1, -a1, -a2);
 
     std::cout << "\n";
+}
+
+int xi(int n) {
+    return (n == 0) ? 1 : 0;
+}
+
+// Функция для вычисления значения y(n)
+double yi(int n, double b0, double b1, double b2, double a1, double a2) {
+    if (n < 0) {
+        return 0;
+    } else {
+        return (b0 * xi(n) + b1 * xi(n - 1) + b0 * xi(n - 2) + a1 * yi(n - 1, b0, b1, b2, a1, a2) + a2 * yi(n - 2, b0, b1, b2, a1, a2));
+    }
+}
+
+double xp(int n){
+    if (n<0) return 0;
+    else return 1;
+    }
+    
+double yp(int n, double b0, double b1, double b2, double a1, double a2) {
+    if (n < 0) {
+        return 0;
+    } else {
+        return (b0 * xp(n) + b1 * xp(n - 1) + b0 * xp(n - 2) + a1 * yp(n - 1, b0, b1, b2, a1, a2) + a2 * yp(n - 2, b0, b1, b2, a1, a2));
+    }
 }
 
 // Функция для определения импульсной характеристики фильтра
